@@ -1,0 +1,34 @@
+.table {
+    margin-top: 20px;
+  
+    th, td {
+      text-align: center;
+    }
+  }
+  
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  
+    .pagination {
+      list-style-type: none;
+      display: flex;
+      gap: 10px;
+  
+      li {
+        cursor: pointer;
+        padding: 5px 10px;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        color: #007bff;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: #007bff;
+          color: white;
+        }
+      }
+    }
+  }
+  

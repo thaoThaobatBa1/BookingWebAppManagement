@@ -1,0 +1,45 @@
+<div class="container mt-4">
+    <h1>Quản lý Bài viết</h1>
+
+
+    <div class="row">
+        <div class="col-8">
+            <div style="height: 700px;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Nội dung bài viết</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let item of Articles | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
+                            <td>{{ (p - 1) * 10 + (i + 1) }}</td>
+                            <td><span>{{item.articleContent}}</span></td>
+                            <td>
+                                <button (click)="Edit(item)" class="btn btn-warning">Sửa</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <div class="col-4">
+            <div class="container mt-4">
+                <h2>Sửa</h2>
+                <form>
+                    <div class="mb-3">
+                        <textarea [(ngModel)]="newArticle.articleContent" name="itemName" class="form-control"
+                            placeholder="Nội dung bài viết" required rows="5"></textarea>
+                    </div>
+                    <button class="btn btn-warning" (click)="Update()">Cập nhập</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,45 @@
+
+<div class="container mt-4">
+    <h1>Quản lý Banner</h1>
+   
+  
+    <div class="row">
+      <div class="col-8">
+        <div style="height: 700px;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Hình ảnh</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of Baners | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
+                <td>{{ (p - 1) * 10 + (i + 1) }}</td>
+                <td> <img [src]="'https://localhost:7097' + item.banerimg" alt="{{ item.banerimg }}" width="200px" /></td>
+                
+                <td>
+                  <button (click)="Delete(item.banerId)" class="btn btn-danger">Xóa</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="col-4">
+        <div class="container mt-4">
+          <h2>Thêm baner mới</h2>
+          <form>
+            <div class="mb-3">
+                <input type="file" (change)="onFileSelected($event)" class="form-control" />
+              </div>
+            <button class="btn btn-primary" (click)="addCategory()">Thêm</button>
+          </form>
+        </div>
+      </div>
+  
+    </div>
+  </div>

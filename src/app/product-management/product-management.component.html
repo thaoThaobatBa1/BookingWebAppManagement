@@ -1,0 +1,102 @@
+<div class="container mt-4">
+  <h1>Quản lý sản phẩm</h1>
+  <div class="mb-3">
+    <input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Tìm kiếm món ăn" />
+    <button class="btn btn-primary mt-2" (click)="searchMenuItems(searchTerm)">Tìm kiếm</button>
+  </div>
+
+  <div class="row">
+    <div class="col-8">
+      <div style="height: 700px;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên món ăn</th>
+              <th>Mô tả</th>
+              <th>Giá</th>
+              <th>Có sẵn</th>
+              <th>Ảnh</th>
+              <th>Menu</th>
+              <th>Danh mục</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of menuItems | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
+              <td>{{ (p - 1) * 10 + (i + 1) }}</td>
+              <td>{{ item.itemName }}</td>
+              <td>{{ item.description }}</td>
+              <td>{{ item.price }} VND</td>
+              <td>{{ item.available ? 'Có' : 'Không' }}</td>
+              <td><img [src]="'https://localhost:7097' + item.imageMenuItem" alt="{{ item.itemName }}" width="200px" />
+              </td>
+              <td>
+                @for (menu of Menus; track $index) {
+                @if(item.menuID === menu.menuID){
+                <span>{{ menu.menuName }}</span>
+                }
+                }
+              </td>
+              <td *ngFor="let category of Categories">
+                <span *ngIf="item.categoryID === category.categoryID">{{ category.categoryName }}</span>
+              </td>
+              <td>
+                <button (click)="ChangeState(item)" class="btn btn-warning me-3">Sửa</button>
+                <button (click)="Delete(item.menuItemID)" class="btn btn-danger">Xóa</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <div class="col-4">
+      <div class="container mt-4">
+        <h2>Thêm món ăn mới</h2>
+        <form>
+          <div class="mb-3">
+            <input type="text" [(ngModel)]="newMenuItem.itemName" name="itemName" class="form-control"
+              placeholder="Tên món ăn" required />
+          </div>
+          <div class="mb-3">
+            <input type="text" [(ngModel)]="newMenuItem.description" name="description" class="form-control"
+              placeholder="Mô tả" />
+          </div>
+          <div class="mb-3">
+            <input type="number" [(ngModel)]="newMenuItem.price" name="price" class="form-control" placeholder="Giá"
+              required />
+          </div>
+          <div class="mb-3">
+            <label for="menuID">Chọn Menu:</label>
+            <select [(ngModel)]="newMenuItem.menuID" name="menuID" class="form-control" required>
+              <option *ngFor="let menu of Menus" [value]="menu.menuID">{{ menu.menuName }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="categoryID">Chọn Category:</label>
+            <select [(ngModel)]="newMenuItem.categoryID" name="categoryID" class="form-control" required>
+              <option *ngFor="let category of Categories" [value]="category.categoryID">{{ category.categoryName }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <input type="file" (change)="onFileSelected($event)" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label>
+              <input name="available" type="checkbox" [(ngModel)]="newMenuItem.available" /> Có sẵn
+            </label>
+          </div>
+          <button (click)="isEdit ? editMenuItem() : addMenuItem()"
+            [ngClass]="isEdit ? 'btn btn-warning' : 'btn btn-success'">
+            {{ isEdit ? 'Cập nhật' : 'Tạo mới' }}
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

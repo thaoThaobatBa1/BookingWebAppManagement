@@ -1,0 +1,63 @@
+<div class="container mt-4">
+    <h1>Quản lý Menu</h1>
+    <div class="mb-3">
+        <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Tìm kiếm Menu" />
+        <button class="btn btn-primary mt-2" (click)="searchCategory(searchText)">Tìm kiếm</button>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <div style="height: 700px;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên Menu</th>
+                            <th>Mô tả</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of Menus | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
+                            <td>{{ (p - 1) * 10 + (i + 1) }}</td>
+                            <td>{{ item.menuName }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>
+                                <button (click)="ChangeState(item)" class="btn btn-warning me-3">Sửa</button>
+                                <button (click)="Delete(item.menuID)" class="btn btn-danger">Xóa</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <div class="col-4">
+            <div class="container mt-4">
+                @if(isEdit == true){
+                <h2>Cập nhập Menu</h2>
+                }@else {
+                <h2>Thêm Menu mới</h2>
+                }
+                <form>
+                    <div class="mb-3">
+                        <input type="text" [(ngModel)]="newMenu.menuName" name="itemName" class="form-control"
+                            placeholder="Tên loại" required />
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" [(ngModel)]="newMenu.description" name="description"
+                            class="form-control" placeholder="Mô tả" />
+                    </div>
+
+                    <button (click)="isEdit ? editcategory() : addCategory()"
+                        [ngClass]="isEdit ? 'btn btn-warning' : 'btn btn-success'">
+                        {{ isEdit ? 'Cập nhật' : 'Tạo mới' }}
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

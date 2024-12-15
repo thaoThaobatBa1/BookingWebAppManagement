@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="search-container">
+        <input type="text" placeholder="Search by name or phone" [(ngModel)]="searchTerm">
+        <div>
+            <button class="btn btn-warning" (click)="searchBookings()">Tìm kiếm</button>
+            <button class="btn btn-danger" (click)="resetSearch()">Xóa bộ lọc</button>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Thông tin khách hàng</th>
+                <th>Thông tin đặt bàn</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="let booking of bookings | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
+                <td>{{ (currentPage - 1) * itemsPerPage + (i + 1) }}</td>
+                <td>
+                    Họ và tên: {{ booking.nameOfGuest }}<br>
+                    Phone: {{ booking.phoneNumber }}
+                </td>
+                <td>
+                    Ngày đặt: {{ booking.bookingDate }}<br>
+                    Giờ đặt: {{ booking.reservationTime }}<br>
+                    Số người: {{ booking.numberOfGuests }}<br>
+                    Tổng tiền: {{ booking.totalPrice | currency:'VND' }}<br>
+                    Tiền cọc: {{ booking.deposit | currency:'VND' }}
+                </td>
+                <td>{{ booking.statusName }}</td>
+                <td>
+                    <div class="action-buttons">
+                        <select [(ngModel)]="selectedStatus"
+                            (change)="updateBookingStatus(booking.orderID, selectedStatus)">
+                            <option *ngFor="let status of bookingStatuses" [value]="status.paymentStatusID">{{
+                                status.paymentStatusName }}</option>
+                        </select>
+                        <button class="btn btn-danger" (click)="deleteBooking(booking)">Xóa</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="pagination-container">
+        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+    </div>
+</div>

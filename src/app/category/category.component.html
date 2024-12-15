@@ -1,0 +1,60 @@
+
+<div class="container mt-4">
+    <h1>Quản lý Loại</h1>
+    <div class="mb-3">
+      <input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Tìm kiếm Loại" />
+      <button class="btn btn-primary mt-2" (click)="searchCategory(searchTerm)">Tìm kiếm</button>
+    </div>
+  
+    <div class="row">
+      <div class="col-8">
+        <div style="height: 700px;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên loại</th>
+                <th>Mô tả</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of Categories | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
+                <td>{{ (p - 1) * 10 + (i + 1) }}</td>
+                <td>{{ item.categoryName }}</td>
+                <td>{{ item.categoryDescription }}</td>
+                <td>
+                  <button (click)="ChangeState(item)" class="btn btn-warning me-3">Sửa</button>
+                  <button (click)="Delete(item.categoryID)" class="btn btn-danger">Xóa</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div class="col-4">
+        <div class="container mt-4">
+          <h2>Thêm loại mới</h2>
+          <form>
+            <div class="mb-3">
+              <input type="text" [(ngModel)]="newCategory.categoryName" name="itemName" class="form-control"
+                placeholder="Tên loại" required />
+            </div>
+            <div class="mb-3">
+              <input type="text" [(ngModel)]="newCategory.categoryDescription" name="description" class="form-control"
+                placeholder="Mô tả" />
+            </div>
+        
+            <button (click)="isEdit ? editcategory() : addCategory()"
+              [ngClass]="isEdit ? 'btn btn-warning' : 'btn btn-success'">
+              {{ isEdit ? 'Cập nhật' : 'Tạo mới' }}
+            </button>
+  
+          </form>
+        </div>
+      </div>
+  
+    </div>
+  </div>

@@ -1,0 +1,59 @@
+<header class="d-flex justify-content-between align-items-center p-3">
+    <h1>Quản lý</h1>
+    <a routerLink="/Login" routerLinkActive="active" (click)="logout()">
+        <span class="me-3">{{ loginName }}</span>
+        <i class="bi bi-box-arrow-in-left me-3"></i>Đăng xuất
+    </a>
+</header>
+
+<div class="sidebar" [class.collapsed]="isCollapsed">
+    <div class="sidebar-header">
+        <h2 *ngIf="!isCollapsed">
+            <a routerLink="" routerLinkActive="active">
+                <i class="bi bi-person-circle me-3"></i>Admin
+            </a>
+        </h2>
+        <button (click)="toggleSidebar()">
+            <span *ngIf="isCollapsed"><i class="bi bi-arrow-bar-right"></i></span>
+            <span *ngIf="!isCollapsed"><i class="bi bi-arrow-bar-left"></i></span>
+        </button>
+    </div>
+    <ul *ngIf="!isCollapsed">
+        <li 
+            routerLink="/layout/control" 
+            routerLinkActive="active" 
+            *ngIf="hasRole(['Admin', 'employee'])">
+            <i class="bi bi-house me-3"></i>Bảng điều khiển
+        </li>
+        <li 
+            routerLink="/layout/booking" 
+            routerLinkActive="active" 
+            *ngIf="hasRole(['Admin', 'employee'])">
+            <i class="bi bi-menu-up me-3"></i>Danh sách đặt bàn
+        </li>
+        <li *ngIf="hasRole(['Admin'])">
+            <i class="bi bi-egg-fried me-1"></i>
+            <select class="form-select" aria-label="Default select example" (change)="onSelectChange($event)">
+                <option value="/layout/products">Sản phẩm</option>
+                <option value="/layout/category">Loại</option>
+                <option value="/layout/menu">Menu</option>
+            </select>
+        </li>
+        <li 
+            routerLink="/layout/baner" 
+            routerLinkActive="active" 
+            *ngIf="hasRole(['Admin'])">
+            <i class="bi bi-microsoft me-3"></i>Banner
+        </li>
+        <li 
+            routerLink="/layout/article" 
+            routerLinkActive="active" 
+            *ngIf="hasRole(['Admin'])">
+            <i class="bi bi-card-checklist me-3"></i>Bài viết
+        </li>
+    </ul>
+</div>
+
+<main>
+    <router-outlet></router-outlet>
+</main>

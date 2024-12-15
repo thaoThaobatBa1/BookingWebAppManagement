@@ -1,0 +1,26 @@
+<div class="role-management container mt-4">
+    <h2 class="mb-4">Quản lý Vai Trò</h2>
+
+    <button class="btn btn-primary mb-3" (click)="openCreateRoleModal()">+ Tạo mới</button>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên vai trò</th>
+                <th scope="col">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let role of roles; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ role.name }}</td>
+
+                <td>
+                    <button class="btn btn-warning" (click)="editRole(role)">✏️</button>
+                    <button class="btn btn-danger" (click)="deleteRole(role.id)">🗑️</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,85 @@
+.auth-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fbe5c8; /* Màu nền tông ấm */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    .auth-form {
+      h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #d35400; /* Màu chữ tông ấm */
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          color: #a0522d; /* Màu chữ nhãn */
+        }
+
+        input {
+          width: 100%;
+          padding: 0.5rem;
+          border: 1px solid #d2a679; /* Viền màu ấm */
+          border-radius: 4px;
+        }
+      }
+
+      .btn {
+        display: block;
+        width: 100%;
+        padding: 0.5rem;
+        background-color: #d35400; /* Nút màu tông ấm */
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+
+        &:hover {
+          background-color: #b94500; /* Màu khi hover */
+        }
+      }
+
+      p {
+        text-align: center;
+        margin-top: 1rem;
+
+        a {
+          color: #d35400; /* Màu liên kết */
+          cursor: pointer;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+}
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
+    margin: 0;
+    background-image: url('https://images.pexels.com/photos/62640/pexels-photo-62640.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); /* Đường dẫn đến hình ảnh */
+    background-size: cover; /* Tự động điều chỉnh kích thước để phủ đầy */
+    background-position: center; /* Đặt hình ảnh ở giữa */
+    background-repeat: no-repeat; /* Không lặp lại hình ảnh */
+}
+
+
+.auth-container {
+    max-width: 400px;
+    width: 100%; /* Giới hạn chiều rộng */
+    padding: 2rem;
+    background-color: #fbe5c8; /* Màu nền tông ấm */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
